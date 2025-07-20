@@ -237,7 +237,7 @@ def _clang_tidy_aspect_impl(target, ctx):
     c_flags = safe_flags(toolchain_flags(ctx, ACTION_NAMES.c_compile) + rule_flags) + ["-xc"]
     cxx_flags = safe_flags(toolchain_flags(ctx, ACTION_NAMES.cpp_compile) + rule_flags) + ["-xc++"]
 
-    include_headers = "no-clang-tidy-headers" not in ctx.rule.attr.tags
+    include_headers = "clang-tidy-headers" in ctx.rule.attr.tags
     srcs = rule_sources(ctx.rule.attr, include_headers)
 
     outputs = [
