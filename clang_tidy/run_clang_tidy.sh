@@ -36,8 +36,10 @@ set -- \
   --checks=-clang-diagnostic-builtin-macro-redefined \
   --warnings-as-errors=-clang-diagnostic-builtin-macro-redefined \
    "$@"
-
+  
+# Tee to a file to resolve issues with how clang tidy buffers outputs
 {
   "${CLANG_TIDY_BIN}" --quiet --verify-config \
   && "${CLANG_TIDY_BIN}" "$@"
-} >"$logfile" 2>&1
+} 2>&1 | tee -a "$logfile" >/dev/null
+
